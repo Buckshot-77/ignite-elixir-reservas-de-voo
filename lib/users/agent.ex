@@ -7,16 +7,18 @@ defmodule Flightex.Users.Agent do
     Agent.start_link(fn -> %{} end, name: __MODULE__)
   end
 
-  def save(%User{} = user), do: Agent.update(__MODULE__, &update_state(&1, user))
+  def save(%User{cpf: cpf} = user) do
+    Agent.update(__MODULE__, &update_state(&1, user, cpf))
+  end
 
-  def get(id), do: Agent.get(__MODULE__, &get_user(&1, id))
+  def get(cpf), do: Agent.get(__MODULE__, &get_user(&1, cpf))
 
-  defp get_user(state, id) do
-    case Map.get(state, id) do
+  defp get_user(state, cpf) do
+    case Map.get(state, cpf) do
       nil -> {:error, "User not found"}
       user -> {:ok, user}
     end
   end
 
-  defp update_state(state, %User{id: id} = user), do: Map.put(state, id, user)
+  defp update_state(state, %User{} = user, cpf), do: Map.put(state, cpf, user)
 end

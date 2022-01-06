@@ -2,6 +2,10 @@ defmodule Flightex.Users.CreateOrUpdate do
   alias Flightex.Users.Agent, as: UserAgent
   alias Flightex.Users.User
 
+  def call(%{cpf: cpf}) when not is_binary(cpf) do
+    {:error, "Cpf must be a String"}
+  end
+
   def call(%{cpf: cpf, email: email, name: name}) do
     User.build(name, email, cpf)
     |> handle_save_user()
