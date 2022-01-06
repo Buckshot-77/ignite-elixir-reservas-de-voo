@@ -6,11 +6,12 @@ defmodule Flightex.Users.User do
   def build(name, email, cpf) do
     id = UUID.uuid4()
 
-    %__MODULE__{
-      name: name,
-      email: email,
-      cpf: cpf,
-      id: id
-    }
+    {:ok,
+     %__MODULE__{
+       name: name,
+       email: email,
+       cpf: cpf,
+       id: id
+     }}
   end
 end

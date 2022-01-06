@@ -14,7 +14,7 @@ defmodule Flightex.Users.Agent do
   defp get_user(state, id) do
     case Map.get(state, id) do
       nil -> {:error, "User not found"}
-      user -> user
+      user -> {:ok, user}
     end
   end
 
