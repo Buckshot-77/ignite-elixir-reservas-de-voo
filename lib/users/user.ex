@@ -3,7 +3,14 @@ defmodule Flightex.Users.User do
   @enforce_keys @keys
   defstruct @keys
 
-  def build do
-    # TO DO
+  def build(name, email, cpf) do
+    id = UUID.uuid4()
+
+    %__MODULE__{
+      name: name,
+      email: email,
+      cpf: cpf,
+      id: id
+    }
   end
 end
